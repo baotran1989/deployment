@@ -4,7 +4,7 @@ metadata:
   name: izota-dummy-config
   namespace: dev-frontend
 data:
-  ExternalAPIMessageA: "http://izota-dummy-service.dev-backend.svc.cluster.local"
-  ExternalAPIMessageB: "http://izota-dummy-service.dev-backend.svc.cluster.local"
-  ExternalAPIMessageC: "http://izota-dummy-service.dev-backend.svc.cluster.local"
+  ExternalAPIMessageA: "http://izota-dummy-service.dev-backend.svc.cluster.local/api/backend/message-a"
+  ExternalAPIMessageB: "http://izota-dummy-service.dev-backend.svc.cluster.local/api/backend/message-b"
+  ExternalAPIMessageC: "http://izota-dummy-service.dev-backend.svc.cluster.local/api/backend/message-c"
   StartupTime: "35"
