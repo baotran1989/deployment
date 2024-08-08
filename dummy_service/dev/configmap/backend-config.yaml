@@ -4,7 +4,7 @@ metadata:
   name: izota-dummy-config
   namespace: dev-backend
 data:
-  AppSettings__ExternalAPIMessageA: "http://localhost:8080/api/backend/message-a"
-  AppSettings__ExternalAPIMessageB: "http://localhost:8080/api/backend/message-b"
-  AppSettings__ExternalAPIMessageC: "http://localhost:8080/api/backend/message-c"
-  AppSettings__StartupTime: "35"
+  ExternalAPIMessageA: "http://izota-dummy-service.dev-backend.svc.cluster.local"
+  ExternalAPIMessageB: "http://izota-dummy-service.dev-backend.svc.cluster.local"
+  ExternalAPIMessageC: "http://izota-dummy-service.dev-backend.svc.cluster.local"
+  StartupTime: "35"

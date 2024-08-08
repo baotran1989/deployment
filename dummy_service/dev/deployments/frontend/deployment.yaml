@@ -26,26 +26,26 @@ spec:
             limits:
               cpu: "200m"
           env:
-          - name: AppSettings__ExternalAPIMessageA
+          - name: ExternalAPIMessageA
             valueFrom:
               configMapKeyRef:
                 name: izota-dummy-config
-                key: AppSettings__ExternalAPIMessageA
-          - name: AppSettings__ExternalAPIMessageB
+                key: ExternalAPIMessageA
+          - name: ExternalAPIMessageB
             valueFrom:
               configMapKeyRef:
                 name: izota-dummy-config
-                key: AppSettings__ExternalAPIMessageB
-          - name: AppSettings__ExternalAPIMessageC
+                key: ExternalAPIMessageB
+          - name: ExternalAPIMessageC
             valueFrom:
               configMapKeyRef:
                 name: izota-dummy-config
-                key: AppSettings__ExternalAPIMessageC
-          - name: AppSettings__StartupTime
+                key: ExternalAPIMessageC
+          - name: StartupTime
             valueFrom:
               configMapKeyRef:
                 name: izota-dummy-config
-                key: AppSettings__StartupTime
+                key: StartupTime
           ports:
             - containerPort: 8080
               protocol: TCP
