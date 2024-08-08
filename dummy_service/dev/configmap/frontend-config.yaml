@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: izota-dummy-config
+  namespace: dev-frontend
+data:
+  AppSettings__ExternalAPIMessageA: "http://localhost:8080/api/backend/message-a"
+  AppSettings__ExternalAPIMessageB: "http://localhost:8080/api/backend/message-b"
+  AppSettings__ExternalAPIMessageC: "http://localhost:8080/api/backend/message-c"
+  AppSettings__StartupTime: "35"

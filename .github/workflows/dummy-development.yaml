@@ -1,0 +1,34 @@
+name: dummy-development
+
+on:
+  repository_dispatch:
+    types: [dummy_service_development]
+env:
+  PATH_ENV_DEV: 'dummy_service/dev'
+
+jobs:
+  DeployToDev:
+    if: github.event.client_payload.ref_name == 'development'
+    runs-on: eos
+    steps:
+      - name: Dummy
+        run: |
+          echo "DOCKER_IMAGE_TAG=${{ github.event.client_payload.docker_image_tag }}"
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Replace docker image in file deployment
+        run: |
+          sed -i 's|DOCKER_IMAGE_FRONTEND|${{ secrets.DOCKER_USERNAME }}/izota-dummy:${{ github.event.client_payload.docker_image_tag }}|g' ${{ env.PATH_ENV_DEV }}/deployments/frontend/deployment.yaml
+          sed -i 's|DOCKER_IMAGE_FRONTEND|${{ secrets.DOCKER_USERNAME }}/izota-dummy:${{ github.event.client_payload.docker_image_tag }}|g' ${{ env.PATH_ENV_DEV }}/deployments/frontend/deployment-frontend-2.yaml
+          sed -i 's|DOCKER_IMAGE_BACKEND|${{ secrets.DOCKER_USERNAME }}/izota-dummy:${{ github.event.client_payload.docker_image_tag }}|g' ${{ env.PATH_ENV_DEV }}/deployments/backend/deployment.yaml
+      - name: Deploy Frontend
+        run: |
+          kubectl apply -f ${{ env.PATH_ENV_DEV }}/configmap/frontend-config.yaml
+          kubectl apply -f ${{ env.PATH_ENV_DEV }}/deployments/frontend/deployment.yaml
+      - name: Deploy Frontend 2
+        run: |
+          kubectl apply -f ${{ env.PATH_ENV_DEV }}/deployments/frontend/deployment-frontend-2.yaml
+      - name: Deploy Backend
+        run: |
+          kubectl apply -f ${{ env.PATH_ENV_DEV }}/configmap/backend-config.yaml
+          kubectl apply -f ${{ env.PATH_ENV_DEV }}/deployments/backend/deployment.yaml

@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: izota-dummy-deployment
+  namespace: dev-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: izota-dummy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: izota-dummy
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: izota-dummy
+          image: DOCKER_IMAGE_FRONTEND
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m"
+          env:
+          - name: AppSettings__ExternalAPIMessageA
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: AppSettings__ExternalAPIMessageA
+          - name: AppSettings__ExternalAPIMessageB
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: AppSettings__ExternalAPIMessageB
+          - name: AppSettings__ExternalAPIMessageC
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: AppSettings__ExternalAPIMessageC
+          - name: AppSettings__StartupTime
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: AppSettings__StartupTime
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      imagePullSecrets:
+        - name: docker-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: izota-dummy-service
+  namespace: dev-frontend
+spec:
+  selector:
+    app: izota-dummy
+  ports:
+    - port: 80
+      targetPort: 8080
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dummy-service-frontend-hpa
+  namespace: dev-frontend
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: izota-dummy-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 60
+
+

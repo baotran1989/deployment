@@ -1,0 +1,19 @@
+name: Deploy Ingress
+
+on:
+  workflow_dispatch:
+
+env:
+  PATH_ENV_DEV: 'dummy_service/dev'
+
+jobs:
+  deploy:
+    runs-on: eos
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy Ingress
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          kubectl apply -f ${{ env.PATH_ENV_DEV }}/ingress/dummy-ingress.yaml
