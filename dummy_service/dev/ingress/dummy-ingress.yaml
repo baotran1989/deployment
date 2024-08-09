@@ -6,7 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "60s"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800s"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
 spec:
   ingressClassName: nginx
