@@ -50,27 +50,27 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: db-secret           # Tên của Secret
-                key: MongoConnectionString # Tên khóa trong Secret
+                key: MONGODB_URI # Tên khóa trong Secret
           - name: PostgresConnectionString
             valueFrom:
               secretKeyRef:
                 name: db-secret           # Tên của Secret
-                key: PostgresConnectionString # Tên khóa trong Secret
+                key: PG_DB_CONNECTION # Tên khóa trong Secret
           - name: MQHost
             valueFrom:
               secretKeyRef:
                 name: db-secret
-                key: MQHost
+                key: MQ_HOST
           - name: MQUserName
             valueFrom:
               secretKeyRef:
                 name: db-secret
-                key: MQUserName
+                key: MQ_USERNAME
           - name: MQPassword
             valueFrom:
               secretKeyRef:
                 name: db-secret
-                key: MQPassword
+                key: MQ_PASSWORD
           ports:
             - containerPort: 8080
               protocol: TCP
