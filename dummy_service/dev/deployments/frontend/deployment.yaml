@@ -46,6 +46,31 @@ spec:
               configMapKeyRef:
                 name: izota-dummy-config
                 key: StartupTime
+          - name: MongoConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: db-secret           # Tên của Secret
+                key: MongoConnectionString # Tên khóa trong Secret
+          - name: PostgresConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: db-secret           # Tên của Secret
+                key: PostgresConnectionString # Tên khóa trong Secret
+          - name: MQHost
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: MQHost
+          - name: MQUserName
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: MQUserName
+          - name: MQPassword
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: MQPassword
           ports:
             - containerPort: 8080
               protocol: TCP
