@@ -23,4 +23,4 @@ spec:
               service:
                 name: izota-dummy-service
                 port:
-                  number: 8080
+                  number: 80
