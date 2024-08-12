@@ -18,7 +18,7 @@ jobs:
           kubectl apply -f ${{ env.PATH_ENV_DEV }}/ingress/dummy-ingress.yaml
   deploy-ingress-dummy-service-sandbox:
     runs-on: eos
-    enviroment: sandbox
+    environment: sandbox
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
