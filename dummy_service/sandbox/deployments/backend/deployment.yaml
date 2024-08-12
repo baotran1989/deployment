@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: izota-dummy-deployment
-  namespace: dev-backend
+  namespace: sandbox-backend
 spec:
   replicas: 1
   selector:
@@ -35,7 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: izota-dummy-service
-  namespace: dev-backend
+  namespace: sandbox-backend
 spec:
   selector:
     app: izota-dummy-backend
