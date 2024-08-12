@@ -5,9 +5,9 @@ metadata:
   namespace: dev-frontend
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60s"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600s"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800s"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600s"
 spec:
   ingressClassName: nginx
   rules:
