@@ -5,13 +5,23 @@ on:
 
 env:
   PATH_ENV_DEV: 'dummy_service/dev'
+  PATH_SANDBOX_ENV: 'dummy_service/sandbox'
 
 jobs:
-  deploy:
+  deploy-ingress-dummy-service:
     runs-on: eos
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Deploy Ingress
+      - name: Deploy Ingress Dummy Service
         run: |
           kubectl apply -f ${{ env.PATH_ENV_DEV }}/ingress/dummy-ingress.yaml
+  deploy-ingress-dummy-service-sandbox:
+    runs-on: eos
+    enviroment: sandbox
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy Ingress Dummy Service Sanbox
+        run: |
+          kubectl apply -f ${{ env.PATH_SANDBOX_ENV }}/ingress/dummy-ingress.yaml
