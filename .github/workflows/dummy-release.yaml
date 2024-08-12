@@ -9,10 +9,10 @@ env:
   PATH_PRODUCTION_ENV: 'dummy_service/production'
 
 jobs:
-  DeployToSanbox:
+  DeployToSandbox:
     if: |
       github.event.client_payload.ref_name == 'release' &&
-      github.event.client_payload.environment == 'sanbox'
+      github.event.client_payload.environment == 'sandbox'
     runs-on: eos
     environment: sandbox
     steps:
