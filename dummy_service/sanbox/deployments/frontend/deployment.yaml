@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: izota-dummy-deployment
-  namespace: dev-frontend
+  namespace: sanbox-frontend
 spec:
   replicas: 1
   selector:
@@ -26,14 +26,51 @@ spec:
             limits:
               cpu: "200m"
           env:
-          - name: AppSettings__ExternalAPIMessageA
-            value: "http://izota-dummy-service.dev-backend.svc.cluster.local/api/backend/message-a"
-          - name: AppSettings__ExternalAPIMessageB
-            value: "http://izota-dummy-service.dev-backend.svc.cluster.local/api/backend/message-b"
-          - name: AppSettings__ExternalAPIMessageC
-            value: "http://izota-dummy-service.dev-backend.svc.cluster.local/api/backend/message-c"
-          - name: AppSettings__StartupTime
-            value: "35"
+          - name: ExternalAPIMessageA
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: ExternalAPIMessageA
+          - name: ExternalAPIMessageB
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: ExternalAPIMessageB
+          - name: ExternalAPIMessageC
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: ExternalAPIMessageC
+          - name: StartupTime
+            valueFrom:
+              configMapKeyRef:
+                name: izota-dummy-config
+                key: StartupTime
+          - name: MongoConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: db-secret           # Tên của Secret
+                key: MONGODB_URI # Tên khóa trong Secret
+          - name: PostgresConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: db-secret           # Tên của Secret
+                key: PG_DB_CONNECTION # Tên khóa trong Secret
+          - name: MQHost
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: MQ_HOST
+          - name: MQUserName
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: MQ_USERNAME
+          - name: MQPassword
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: MQ_PASSWORD
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -43,30 +80,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: izota-dummy-service
-  namespace: dev-frontend
+  namespace: sanbox-frontend
 spec:
   selector:
     app: izota-dummy
   ports:
     - port: 80
       targetPort: 8080
-
-#---
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: izota-dummy
-#  namespace: dev-frontend
-#spec:
-#  ingressClassName: nginx
-#  rules:
-#    - host: izota-dummy.mpire.asia
-#      http:
-#        paths:
-#          - backend:
-#              service:
-#                name: izota-dummy-service
-#                port:
-#                  number: 80
-#            path: /
-#            pathType: Prefix
