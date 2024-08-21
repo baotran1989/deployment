@@ -6,6 +6,7 @@ on:
 env:
   PATH_ENV_DEV: 'dummy_service/dev'
   PATH_SANDBOX_ENV: 'dummy_service/sandbox'
+  PATH_PRODUCTION_ENV: 'dummy_service/production'
 
 jobs:
   deploy-ingress-dummy-service:
@@ -25,3 +26,12 @@ jobs:
       - name: Deploy Ingress Dummy Service Sanbox
         run: |
           kubectl apply -f ${{ env.PATH_SANDBOX_ENV }}/ingress/dummy-ingress.yaml
+  deploy-ingress-dummy-service-production:
+    runs-on: eos
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy Ingress Dummy Service Production
+        run: |
+          kubectl apply -f ${{ env.PATH_PRODUCTION_ENV }}/ingress/dummy-ingress.yaml

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: izota-dummy-config
+  namespace: prod-frontend
+data:
+  ExternalAPIMessageA: "http://izota-dummy-service.prod-backend.svc.cluster.local/api/backend/message-a"
+  ExternalAPIMessageB: "http://izota-dummy-service.prod-backend.svc.cluster.local/api/backend/message-b"
+  ExternalAPIMessageC: "http://izota-dummy-service.prod-backend.svc.cluster.local/api/backend/message-c"
+  StartupTime: "35"
