@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: sanbox-frontend-izota.mpire.asia
+    - host: sandbox-frontend-izota.mpire.asia
       http:
         paths:
           - path: /
