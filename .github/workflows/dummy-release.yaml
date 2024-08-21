@@ -30,6 +30,7 @@ jobs:
           kubectl apply -f ${{ env.PATH_SANDBOX_ENV }}/deployments/frontend/deployment.yaml
       - name: Deploy Backend
         run: |
+          kubectl apply -f ${{ env.PATH_SANDBOX_ENV }}/configmap/backend-config.yaml
           kubectl apply -f ${{ env.PATH_SANDBOX_ENV }}/deployments/backend/deployment.yaml
 
   DeployToProduction:
@@ -54,4 +55,5 @@ jobs:
           kubectl apply -f ${{ env.PATH_PRODUCTION_ENV }}/deployments/frontend/deployment.yaml
       - name: Deploy Backend
         run: |
+          kubectl apply -f ${{ env.PATH_PRODUCTION_ENV }}/configmap/backend-config.yaml
           kubectl apply -f ${{ env.PATH_PRODUCTION_ENV }}/deployments/backend/deployment.yaml
