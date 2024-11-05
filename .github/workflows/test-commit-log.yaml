@@ -15,7 +15,6 @@ jobs:
       # Thêm dòng dữ liệu vào file log
       - name: Append data to log file
         run: echo "$(date) - Cập nhật log" >> log.txt
-
       # Cấu hình thông tin người dùng cho commit
       - name: Configure Git
         run: |
