@@ -1,0 +1,32 @@
+name: Deploy Ingress Dummy service
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  test-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      # Thêm dòng dữ liệu vào file log
+      - name: Append data to log file
+        run: echo "$(date) - Cập nhật log" >> log.txt
+
+      # Cấu hình thông tin người dùng cho commit
+      - name: Configure Git
+        run: |
+#          git config user.name "github-actions[bot]"
+#          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "<>"
+          git config --global user.name "CI Build"
+
+      # Commit và push thay đổi
+      - name: Commit and Push Changes
+        run: |
+          git add log.txt
+          git commit -m "Cập nhật log tự động từ GitHub Action"
+          git push
