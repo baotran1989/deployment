@@ -27,6 +27,6 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git add log.txt
+          git add logs/${{env.SERVICE_NAME}}.txt
           git commit -m "Cập nhật log tự động từ GitHub Action"
           git push
