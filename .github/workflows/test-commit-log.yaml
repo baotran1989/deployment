@@ -14,6 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create logs directory
+        run: mkdir -p logs
+
       - name: Append data to log file
         run: echo "$(date) - Cập nhật log" >> logs/${{env.SERVICE_NAME}}.txt
 
